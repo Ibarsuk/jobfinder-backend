@@ -25,12 +25,15 @@ class DatabaseSeeder extends Seeder
     public function run()
     {   
         $this->call(TagSeeder::class);
-        $tagsNumber = Tag::count();
-        $users = User::factory($this::USER_NUMBER)->hasCandidate()->hasCompany()->create();
-        
+
+        User::factory($this::USER_NUMBER)->hasCandidate()->hasCompany()->create();
+        $this->call(CustomSeeder::class);
+
+        $users = User::all();
         $candidates = Candidate::all();
         $companies = Company::all();
 
+        $tagsNumber = Tag::count();
         $candidatesNumber = $candidates->count();
         $companiesNumber = $companies->count();
 
@@ -41,11 +44,11 @@ class DatabaseSeeder extends Seeder
         UserSeeder::addRandomFormsToBlacklist($users, $companiesNumber, 'companies');
 
         CandidateReport::factory(DatabaseSeeder::CANDIDATE_REPORTS_NUMBER)
-            ->sequence(fn () => ['candidate_id' => rand(0, $candidatesNumber - 1)])
+            ->sequence(fn () => ['candidate_id' => rand(1, $candidatesNumber)])
             ->create();
 
         CompanyReport::factory(DatabaseSeeder::COMPANIES_REPORTS_NUMBER)
-            ->sequence(fn () => ['company_id' => rand(0, $companiesNumber - 1)])
+            ->sequence(fn () => ['company_id' => rand(1, $companiesNumber)])
             ->create();
     }
 }
