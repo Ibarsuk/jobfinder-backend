@@ -41,4 +41,8 @@ class Company extends Model
     public function candidatesLikes() {
         return $this->belongsToMany(Candidate::class, 'company_likes')->using(CompanyLike::class)->withTimestamps();
     }
+
+    public function reports() {
+        return $this->hasMany(CompanyReport::class);
+    }
 }
