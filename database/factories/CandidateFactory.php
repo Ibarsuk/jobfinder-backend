@@ -21,7 +21,6 @@ class CandidateFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::factory(),
             'experience' => rand(0, $this::MAX_EXPERIENCE),
             'position' => fake()->jobTitle(),
             'text' => fake()->realText(1000),

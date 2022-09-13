@@ -20,7 +20,6 @@ class CompanyFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::factory(),
             'min_experience' => rand(0, $this::MAX_EXPERIENCE),
             'position' => fake()->jobTitle(),
             'text' => fake()->realText(1000),
