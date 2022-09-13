@@ -1,0 +1,20 @@
+POST http://127.0.0.1:8000/api/candidates HTTP/1.1
+content-type: application/json
+
+{
+    "first_name": "MR Dj",
+    "last_name": "Alligator"
+}
+
+###
+
+POST http://127.0.0.1:8000/api/users HTTP/1.1
+content-type: application/json
+
+{
+    "first_name": "MR Dj",
+    "last_name": "Alligator",
+    "email": "somegreatbobr@gmail.com",
+    "password": "yfAE89!!Nv8",
+    "age": 32
+}
