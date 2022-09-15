@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::name('candidates')->
     prefix('candidates')->
     controller(CandidateController::class)->
+    middleware('auth')->
     group(__DIR__.'/candidates.php');
 
 Route::name('users')->
