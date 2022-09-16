@@ -60,7 +60,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Company::class, 'company_blacklist')->using(CompanyBlacklist::class);
     }
 
-    // public function token() {
-    //     return $this->hasOne(Token::class)
-    // }
+    public function tokens() {
+        return $this->hasMany(Token::class);
+    }
 }
