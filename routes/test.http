@@ -15,3 +15,14 @@ content-type: application/json
     "password": "yfAE89!!Nv8",
     "age": 32
 }
+
+###
+
+POST http://127.0.0.1:8000/api/users/login HTTP/1.1
+content-type: application/json
+Accept: application/json
+
+{
+    "email": "mytester237@mail.com",
+    "password": "!!11QQwas"
+}

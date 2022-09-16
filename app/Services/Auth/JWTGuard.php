@@ -2,6 +2,7 @@
 
 namespace App\Services\Auth;
 
+use App\Models\User;
 use Exception;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -13,9 +14,9 @@ use Illuminate\Support\Facades\Log;
 
 class JWTGuard implements Guard {
 
-    protected $request;
+    protected Request $request;
     protected $provider;
-    protected ?Authenticatable $user = null;
+    protected ?User $user = null;
 
     public function __construct(UserProvider $provider, Request $request) {
         $this->request = $request;
@@ -28,11 +29,10 @@ class JWTGuard implements Guard {
             if (!$token) return false;
 
             $payload = JWT::decode($token, new Key(config('jwt.keys.access'), config('jwt.algorithm')));
-            $user = (object) $payload->user;
 
-            if (!$user) return false;
+            if (!$payload->user) return false;
             
-            $this->setUser($user);
+            $this->setUser(new User($payload->user));
 
             return true;
         } catch(Exception $e) {
@@ -47,7 +47,7 @@ class JWTGuard implements Guard {
         return !$this->user;
     }
 
-    public function user() {
+    public function user() : ?User {
         return $this->user;
     }
 

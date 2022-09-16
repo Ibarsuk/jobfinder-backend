@@ -7,4 +7,12 @@ return [
     ],
 
     'algorithm' => 'HS256',
+
+    'expires' => [
+        //seconds
+        'access' => 900,
+
+        //days
+        'refresh' => 30,
+    ],
 ];
