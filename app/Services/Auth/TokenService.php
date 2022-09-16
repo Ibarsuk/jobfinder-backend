@@ -3,6 +3,7 @@
 namespace App\Services\Auth;
 
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class TokenService {
     public static function createJwtAccessToken($payload = []) {
@@ -23,7 +24,8 @@ class TokenService {
 
     public static function createJwtRefreshToken($payload = []) {
         $currentTime = time();
-        $expirationTime = strtotime("+{config(jwt.expires.refresh)} days", $currentTime);
+        $refreshExpirationDays = config('jwt.expires.refresh');
+        $expirationTime = strtotime("+{$refreshExpirationDays} days", $currentTime);
         $token = JWT::encode(
             $payload + 
             [
@@ -33,7 +35,10 @@ class TokenService {
             config('jwt.keys.refresh'),
             config('jwt.algorithm')
         );
-
         return ['token' => $token, 'expires' => $expirationTime];
+    }
+
+    public static function verify($token, $tokenType) {
+        return JWT::decode($token, new Key(config("jwt.keys.$tokenType"), config('jwt.algorithm')));
     }
 }

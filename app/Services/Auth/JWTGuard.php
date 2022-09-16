@@ -28,7 +28,7 @@ class JWTGuard implements Guard {
             $token = $this->request->bearerToken();
             if (!$token) return false;
 
-            $payload = JWT::decode($token, new Key(config('jwt.keys.access'), config('jwt.algorithm')));
+            $payload = TokenService::verify($token, 'access');
 
             if (!$payload->user) return false;
             
