@@ -17,14 +17,13 @@ class CandidateController extends Controller
         pluck('candidate_id');
 
         $candidates = Candidate::select()->
-        with(['tags', 'user'])->
+        with(['tags:id,name', 'user'])->
         whereNotIn('id', $blackList)->
         orderBy('relevant_at', 'asc')->
         limit(100)->
-        get()->
-        dd();
+        get();
 
-        return $candidates->count();
+        return $candidates;
     }
 
     public static function store(Request $req) {

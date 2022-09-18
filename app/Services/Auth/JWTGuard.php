@@ -32,7 +32,7 @@ class JWTGuard implements Guard {
 
             if (!$payload->user) return false;
             
-            $this->setUser(new User($payload->user));
+            $this->setUser(new User((array)$payload->user));
 
             return true;
         } catch(Exception $e) {

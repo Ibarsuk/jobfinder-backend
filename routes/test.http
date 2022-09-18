@@ -1,7 +1,7 @@
 GET http://127.0.0.1:8000/api/candidates HTTP/1.1
 content-type: application/json
 Accept: application/json
-Authorization: Bearer nvdksk24q249unbd
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7ImlkIjoxMSwiZmlyc3RfbmFtZSI6Ik15IiwibGFzdF9uYW1lIjoiVGVzdGVyIiwiZW1haWwiOiJteXRlc3RlcjIzN0BtYWlsLmNvbSIsImNyZWF0ZWRfYXQiOiIyMDIyLTA5LTE4VDEzOjM4OjM0LjAwMDAwMFoiLCJ1cGRhdGVkX2F0IjoiMjAyMi0wOS0xOFQxMzozODozNC4wMDAwMDBaIiwiYWdlIjoyNH0sImlhdCI6MTY2MzUwODMyNiwiZXhwIjoxNjYzNTA5MjI2fQ.aY95it5Y6v1_ANutgM2RBUYt5ORntmZjiWpiR_wewN4
 
 ###
 
@@ -25,4 +25,14 @@ Accept: application/json
 {
     "email": "mytester237@mail.com",
     "password": "!!11QQwas"
+}
+
+###
+
+POST http://127.0.0.1:8000/api/users/refresh HTTP/1.1
+content-type: application/json
+Accept: application/json
+
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsImlhdCI6MTY2MzUwODMyNiwiZXhwIjoxNjY2MTAwMzI2fQ.VPsL82nCUCZsK-XEZYOFrMxpwMfi2_5R_bPVP-25J1I"
 }

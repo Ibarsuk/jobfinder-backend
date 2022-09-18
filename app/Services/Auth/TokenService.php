@@ -2,6 +2,7 @@
 
 namespace App\Services\Auth;
 
+use App\Models\User;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
@@ -40,5 +41,14 @@ class TokenService {
 
     public static function verify($token, $tokenType) {
         return JWT::decode($token, new Key(config("jwt.keys.$tokenType"), config('jwt.algorithm')));
+    }
+
+    public static function createTokens(User $user) {
+        ["token" => $access] = TokenService::createJwtAccessToken(['user' => $user->attributesToArray()]);
+        ["token" => $refresh, "expires" => $refreshExpires] = TokenService::createJwtRefreshToken(['id' => $user->id]);
+        
+        $user->tokens()->create(['token' => $refresh, 'expires' => $refreshExpires]);
+
+        return ["access" => $access, "refresh" => $refresh];
     }
 }
