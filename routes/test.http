@@ -36,3 +36,14 @@ Accept: application/json
 {
     "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsImlhdCI6MTY2MzUwODMyNiwiZXhwIjoxNjY2MTAwMzI2fQ.VPsL82nCUCZsK-XEZYOFrMxpwMfi2_5R_bPVP-25J1I"
 }
+
+###
+
+POST http://127.0.0.1:8000/api/users/logout HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7ImlkIjoxMSwiZmlyc3RfbmFtZSI6Ik15IiwibGFzdF9uYW1lIjoiVGVzdGVyIiwiZW1haWwiOiJteXRlc3RlcjIzN0BtYWlsLmNvbSIsImFnZSI6MjR9LCJpYXQiOjE2NjM3MTIxNTEsImV4cCI6MTY2MzcxMzA1MX0.Fe3T1YB9tBsK3hgDZkDX5OQ5doa31M60e9X_Cy7TDF8
+
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsImlhdCI6MTY2MzcxMjE1MSwiZXhwIjoxNjY2MzA0MTUxfQ.pYrmAEYXyPPBDN5jlmhNPyqlp7jrZE3CEa13AcXrqnI"
+}

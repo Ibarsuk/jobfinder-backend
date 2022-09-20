@@ -49,4 +49,12 @@ class UserController extends Controller
 
         return ["tokens" => $tokens, "user" => $user];
     }
+
+    public static function logout(Request $req) {
+        $sentToken = $req->validate(['token' => 'required|string'])['token'];
+
+        $deletedTokensNumber = Token::where([['user_id', Auth::user()->id], ['token', $sentToken]])->delete();
+
+        abort_if(!$deletedTokensNumber, 404);
+    }
 }
