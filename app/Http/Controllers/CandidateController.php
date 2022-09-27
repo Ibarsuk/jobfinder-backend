@@ -16,12 +16,12 @@ class CandidateController extends Controller
         get()->
         pluck('candidate_id');
 
-        $candidates = Candidate::select()->
-        with(['tags:id,name', 'user'])->
+        $candidates = Candidate::select('id')->
         whereNotIn('id', $blackList)->
         orderBy('relevant_at', 'asc')->
         limit(100)->
-        get();
+        get()->
+        pluck('id');
 
         return $candidates;
     }

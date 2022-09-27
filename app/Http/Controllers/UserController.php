@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public static function login(LoginRequest $req) {
         
-        abort_if(!Auth::validate($req->validated()), 400);
+        abort_if(!Auth::validate($req->validated()), 400, 'Invalid email or password');
 
         $user = Auth::user();
         $tokens = TokenService::createTokens($user);
@@ -53,7 +53,13 @@ class UserController extends Controller
     public static function logout(Request $req) {
         $sentToken = $req->validate(['token' => 'required|string'])['token'];
 
-        $deletedTokensNumber = Token::where([['user_id', Auth::user()->id], ['token', $sentToken]])->delete();
+        try {
+            $payload = TokenService::verify($sentToken, 'refresh');
+        } catch (Exception $e) {
+            abort(400);
+        }
+
+        $deletedTokensNumber = Token::where([['user_id', $payload->id], ['token', $sentToken]])->delete();
 
         abort_if(!$deletedTokensNumber, 404);
     }

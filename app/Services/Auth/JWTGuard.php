@@ -4,6 +4,7 @@ namespace App\Services\Auth;
 
 use App\Models\User;
 use Exception;
+use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -23,7 +24,7 @@ class JWTGuard implements Guard {
         $this->provider = $provider;
     }
 
-    public function  check() {
+    public function check() {
         try {
             $token = $this->request->bearerToken();
             if (!$token) return false;
@@ -36,6 +37,9 @@ class JWTGuard implements Guard {
 
             return true;
         } catch(Exception $e) {
+            if ($e instanceof ExpiredException) {
+                abort(204, "Token expired");
+            }
             Log::debug("Failed attempt to authenticate");
             return false;
         }
