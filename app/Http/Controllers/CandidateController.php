@@ -34,9 +34,11 @@ class CandidateController extends Controller
         if (isset($validated['photo'])) {
             $validated['photo'] = $validated['photo']->store('candidates', 'public');
         }
-        
+        $user = Auth::user();
 
-        Auth::user()->candidate()->create($validated);
+        if($user->candidate) abort(403);
+
+        $user->candidate()->create($validated);
     }
 
     public static function getCandidateId (Request $req, $id) {
