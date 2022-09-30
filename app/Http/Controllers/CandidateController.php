@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateCandidateRequest;
 use App\Http\Requests\CreateUserRequest;
 use App\Models\Candidate;
 use App\Models\CandidateBlacklist;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CandidateController extends Controller
 {
@@ -26,8 +28,15 @@ class CandidateController extends Controller
         return $candidates;
     }
 
-    public static function store(Request $req) {
-        //
+    public static function store(CreateCandidateRequest $req) {
+        $validated = $req->validated();
+
+        if (isset($validated['photo'])) {
+            $validated['photo'] = $validated['photo']->store('candidates', 'public');
+        }
+        
+
+        Auth::user()->candidate()->create($validated);
     }
 
     public static function getCandidateId (Request $req, $id) {

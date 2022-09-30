@@ -7,6 +7,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7ImlkIjoxM
 
 POST http://127.0.0.1:8000/api/users HTTP/1.1
 content-type: application/json
+Accept: application/json
 
 {
     "first_name": "MR Dj",
@@ -46,4 +47,19 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7ImlkIjoxM
 
 {
     "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsImlhdCI6MTY2MzcxMjE1MSwiZXhwIjoxNjY2MzA0MTUxfQ.pYrmAEYXyPPBDN5jlmhNPyqlp7jrZE3CEa13AcXrqnI"
+}
+
+###
+
+POST http://127.0.0.1:8000/api/candidates HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7ImlkIjoxMSwiZmlyc3RfbmFtZSI6Ik15IiwibGFzdF9uYW1lIjoiVGVzdGVyIiwiZW1haWwiOiJteXRlc3RlcjIzN0BtYWlsLmNvbSIsImFnZSI6MjR9LCJpYXQiOjE2NjQ1NDEyMTAsImV4cCI6MTY2NDU0MjExMH0.yhP9JKEWjrg9RS-II_LhIfqOMiTKjt36-42q-Xh-PBQ
+Accept: application/json
+
+{
+    "experience": 1,
+    "position": "Very good employee",
+    "city": "Tokyo",
+    "portfolio": "https://github.com/Ibarsuk",
+    "text": "Some large text"
 }
