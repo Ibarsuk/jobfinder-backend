@@ -24,6 +24,8 @@ class CreateUserRequest extends FormRequest
      */
     public function rules()
     {
+        $minAllowedAge = config('const.MIN_AGE');
+        $minAllowedBirthDate = date('Y-m-d', strtotime("-{$minAllowedAge} years"));
         return [
             'first_name' => ['required', 'min:3', 'max:100', 'string'],
             'last_name' => ['required', 'min:3', 'max:100', 'string'],
@@ -36,7 +38,7 @@ class CreateUserRequest extends FormRequest
                     numbers()->
                     symbols()
             ],
-            'age' => ['required', 'numeric', 'between:14, 100'],
+            'birth_date' => ['required', 'date_format:Y-m-d', "before:{$minAllowedBirthDate}"]
         ];
     }
 }

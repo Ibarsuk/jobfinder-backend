@@ -26,7 +26,7 @@ class UserFactory extends Factory
             'email' => fake()->safeEmail(),
             //'email_verified_at' => now(),
             'password' => fake()->md5(),
-            'age' => rand($this::MIN_AGE, $this::MAX_AGE),
+            'birth_date' => fake()->dateTimeBetween('-85 years', '-14 years'),
             //'remember_token' => Str::random(10),
         ];
     }

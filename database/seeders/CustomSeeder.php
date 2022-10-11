@@ -22,7 +22,7 @@ class CustomSeeder extends Seeder
                 'last_name' => 'Tester',
                 'email' => 'mytester237@mail.com',
                 'password' => Hash::make('!!11QQwas'),
-                'age' => 24,
+                'birth_date' => '2000-01-01',
             ])
             ->hasCandidate()
             ->hasCompany()

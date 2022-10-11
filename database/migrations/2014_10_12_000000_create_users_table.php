@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('password');
             //$table->rememberToken();
             $table->timestamps();
-            $table->unsignedTinyInteger('age');
+            $table->timestamp('birth_date');
         });
     }
 
