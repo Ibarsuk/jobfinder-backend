@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,12 @@ Route::name('candidates')->
     middleware('auth')->
     group(__DIR__.'/candidates.php');
 
+Route::name('companies')->
+    prefix('companies')->
+    controller(CompanyController::class)->
+    middleware('auth')->
+    group(__DIR__.'/companies.php');
+    
 Route::name('users')->
     prefix('users')->
     controller(UserController::class)->

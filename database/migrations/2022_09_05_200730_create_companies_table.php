@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('min_experience');
             $table->string('position', 100);
             $table->string('photo')->nullable();
-            $table->boolean('active');
+            $table->boolean('active')->default(0);
             $table->string('city')->nullable();
             $table->timestamp('relevant_at')->useCurrent();
             $table->string('website', 100)->nullable();

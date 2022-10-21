@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateCandidateRequest;
-use App\Http\Requests\CreateUserRequest;
 use App\Models\Candidate;
 use App\Models\CandidateBlacklist;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CandidateController extends Controller
 {
     public static function search() {
+        $user = Auth::user();
+
         $blackList = CandidateBlacklist::select('candidate_id')->
-        where('user_id', 1)->
+        where('user_id', $user->id)->
         get()->
         pluck('candidate_id');
 
@@ -36,7 +36,7 @@ class CandidateController extends Controller
         }
         $user = Auth::user();
 
-        if($user->candidate) abort(403);
+        if($user->candidate) abort(403, 'Can have only one candidate form');
 
         $user->candidate()->create($validated);
     }
