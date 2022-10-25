@@ -14,14 +14,23 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public static function store(CreateUserRequest $req) {
+    public static function show()
+    {
+        $user = Auth::user();
+        $userFromTable = User::with(['candidate:id,position,user_id,experience', 'company:id,position,user_id,min_experience'])->find($user->id);
+        return $userFromTable;
+    }
+
+    public static function store(CreateUserRequest $req)
+    {
         $validated = $req->validated();
         $validated['password'] = Hash::make($validated['password']);
         User::create($validated);
     }
 
-    public static function login(LoginRequest $req) {
-        
+    public static function login(LoginRequest $req)
+    {
+
         abort_if(!Auth::validate($req->validated()), 400, 'Invalid email or password');
 
         $user = Auth::user();
@@ -30,12 +39,13 @@ class UserController extends Controller
         return ["tokens" => $tokens, "user" => $user];
     }
 
-    public static function refresh(Request $req) {
+    public static function refresh(Request $req)
+    {
         $sentToken = $req->validate(['token' => 'required|string'])['token'];
 
         try {
             $payload = TokenService::verify($sentToken, 'refresh');
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             abort(401);
         }
 
@@ -50,7 +60,8 @@ class UserController extends Controller
         return ["tokens" => $tokens, "user" => $user];
     }
 
-    public static function logout(Request $req) {
+    public static function logout(Request $req)
+    {
         $sentToken = $req->validate(['token' => 'required|string'])['token'];
 
         try {
