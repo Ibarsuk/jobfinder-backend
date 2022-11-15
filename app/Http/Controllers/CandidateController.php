@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateCandidateRequest;
+use App\Http\Requests\GetCandidatesInfoRequest;
 use App\Models\Candidate;
 use App\Models\CandidateBlacklist;
 use Illuminate\Http\Request;
@@ -26,6 +27,23 @@ class CandidateController extends Controller
         pluck('id');
 
         return $candidates;
+    }
+
+    public static function getInfo(GetCandidatesInfoRequest $req) {
+        $ids = $req->query('ids');
+
+        $candidates = Candidate::whereIn('id', $ids)
+        ->where('active', true)
+        ->with('user:id,first_name,birth_date')
+        ->get();
+
+        $foundFormIds = $candidates->pluck('id')->all();
+        $notFoundFormIds = array_diff($ids, $foundFormIds);
+
+        return [
+            'data' => $candidates,
+            'not_found' => $notFoundFormIds,
+        ];
     }
 
     public static function store(CreateCandidateRequest $req) {
