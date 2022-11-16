@@ -38,7 +38,7 @@ class CandidateController extends Controller
         ->get();
 
         $foundFormIds = $candidates->pluck('id')->all();
-        $notFoundFormIds = array_diff($ids, $foundFormIds);
+        $notFoundFormIds = array_values(array_diff($ids, $foundFormIds));
 
         return [
             'data' => $candidates,
