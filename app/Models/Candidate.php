@@ -34,6 +34,10 @@ class Candidate extends Model
         return $this->belongsToMany(User::class, 'candidate_blacklist')->using(CandidateBlacklist::class);
     }
 
+    public function graylistedBy() {
+        return $this->belongsToMany(User::class, 'candidate_graylist')->using(CandidateGraylist::class)->withTimestamps();
+    }
+
     public function companiesLikes() {
         return $this->belongsToMany(Company::class, 'candidate_likes')->using(CandidateLike::class)->withTimestamps();
     }

@@ -6,6 +6,7 @@ use App\Http\Requests\CreateCandidateRequest;
 use App\Http\Requests\GetCandidatesInfoRequest;
 use App\Models\Candidate;
 use App\Models\CandidateBlacklist;
+use App\Models\CandidateGraylist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,12 +20,21 @@ class CandidateController extends Controller
         get()->
         pluck('candidate_id');
 
+        $grayList = CandidateGraylist::select('candidate_id')
+        ->where('user_id', $user->id)
+        ->get()
+        ->pluck('candidate_id');
+
+        $idsToSkip = array_merge([$user->candidate->id], $blackList->all(), $grayList->all());
+
         $candidates = Candidate::select('id')->
-        whereNotIn('id', $blackList)->
+        whereNotIn('id', $idsToSkip)->
         orderBy('relevant_at', 'asc')->
         limit(100)->
         get()->
         pluck('id');
+
+        $user->graylistedCandidates()->attach($candidates);
 
         return $candidates;
     }

@@ -34,6 +34,10 @@ class Company extends Model
         return $this->belongsToMany(User::class, 'company_blacklist')->using(CompanyBlacklist::class);
     }
 
+    public function graylistedBy() {
+        return $this->belongsToMany(User::class, 'company_graylist')->using(CompanyGraylist::class);
+    }
+
     public function likedByCandidates() {
         return $this->belongsToMany(Candidate::class, 'candidate_likes')->using(CandidateLike::class)->withTimestamps();
     }

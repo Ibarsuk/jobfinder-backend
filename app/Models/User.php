@@ -51,9 +51,13 @@ class User extends Authenticatable
     public function candidate() {
         return $this->hasOne(Candidate::class);
     }
-
+    
     public function blacklistedCandidates() {
         return $this->belongsToMany(Candidate::class, 'candidate_blacklist')->using(CandidateBlacklist::class);
+    }
+    
+    public function graylistedCandidates() {
+        return $this->belongsToMany(Candidate::class, 'candidate_graylist')->using(CandidateGraylist::class)->withTimestamps();
     }
 
     public function company() {
@@ -62,6 +66,10 @@ class User extends Authenticatable
 
     public function blacklistedCompanies() {
         return $this->belongsToMany(Company::class, 'company_blacklist')->using(CompanyBlacklist::class);
+    }
+
+    public function graylistedCompanies() {
+        return $this->belongsToMany(Company::class, 'company_graylist')->using(CompanyGraylist::class);
     }
 
     public function tokens() {
