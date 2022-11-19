@@ -14,7 +14,7 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    const USER_NUMBER = 10;
+    const USER_NUMBER = 500;
     const CANDIDATE_REPORTS_NUMBER = 3;
     const COMPANIES_REPORTS_NUMBER = 3;
     /**

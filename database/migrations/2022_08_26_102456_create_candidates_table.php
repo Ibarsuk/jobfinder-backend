@@ -22,7 +22,7 @@ return new class extends Migration
             $table->boolean('active')->default(0);
             $table->string('city')->nullable();
             $table->timestamp('relevant_at')->useCurrent();
-            $table->string('portfolio', 100)->nullable();
+            $table->string('portfolio', 200)->nullable();
             $table->timestamps();
             $table->string('text', 2000)->nullable();
         });
