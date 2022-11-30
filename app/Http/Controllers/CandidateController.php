@@ -25,7 +25,9 @@ class CandidateController extends Controller
         ->get()
         ->pluck('candidate_id');
 
-        $idsToSkip = array_merge([$user->candidate->id], $blackList->all(), $grayList->all());
+        $userCandidate = $user->candidate;
+        $userCandidateToMerge = $userCandidate ? [$user->candidate->id] : [];
+        $idsToSkip = array_merge($userCandidateToMerge, $blackList->all(), $grayList->all());
 
         $candidates = Candidate::select('id')->
         whereNotIn('id', $idsToSkip)->
@@ -40,7 +42,7 @@ class CandidateController extends Controller
     }
 
     public static function getInfo(GetCandidatesInfoRequest $req) {
-        $ids = $req->query('ids');
+        $ids = array_map('intval', $req->query('ids'));
 
         $candidates = Candidate::whereIn('id', $ids)
         ->where('active', true)
